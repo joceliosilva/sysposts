@@ -23,7 +23,7 @@ if (isset($_GET['post_id'])) {
             echo "Erro ao registrar a curtida: " . $conn->error;
         }
     } else {
-        echo "Você já curtiu este post.";
+        echo "Você já curtiu este postS.";
     }
 }// else {
 //    echo "ID do post não especificado.";
