@@ -46,7 +46,8 @@ if (isset($_GET['post_id'])) {
         echo "<h1>{$row['title']}</h1>";
         echo "<p>Autor: {$row['author']}</p>";
         echo "<p class='post-content'>{$row['post_content']}</p>";
-         echo "<a href='like.php?post_id={$row['post_id']}'>Curtir</a>";
+        echo "<a href='like.php?post_id={$row['post_id']}'>Curtir</a> &nbsp;";
+        echo "<a href='unlike.php?post_id={$row['post_id']}'>Unlike</a>";
                      
 
     } else {

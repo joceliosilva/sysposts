@@ -4,14 +4,8 @@
     <title>Dashboard - Sistema de Posts</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.16.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
     
 </head>
@@ -23,6 +17,7 @@
 header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 require_once "like.php";
+require_once "unlike.php";
        
         if (isset($_SESSION['username'])) {
           
@@ -36,8 +31,8 @@ require_once "like.php";
         ?>
         <h1>Dashboard</h1>
         <p>Olá <?php echo" $user !" ?></p>
-            <button id="inserir-post-btn">Inserir Post</button>
-            <a href="logout.php"><button id="inserir-post-btn">Sair</button></a>
+            <button id="inserir-post-btn" class="btn btn-secondary">Inserir Post</button>
+            <a href="logout.php"><button id="inserir-post-btn" class="btn btn-secondary">Sair</button></a>
 
       
     </header>
@@ -95,12 +90,21 @@ require_once "like.php";
                     echo "<div class='likeunlike'>";
                      
                    echo '<span id="like-count">';
-echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">';
-echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>';
-echo '</svg>';
+                    echo '<i class="glyphicon glyphicon-thumbs-up"></i>';
 echo '&nbsp;'. getLikeCount($row['post_id']);
 echo '</span>';  
-                     echo "<span id='unlike-count'>" . getLikeCount($row['post_id']) . "</span>";
+                   
+
+
+
+
+                     
+                   echo '<span id="unlike-count">';
+                    echo '<i class="glyphicon glyphicon-thumbs-down"></i>';
+echo '&nbsp;'. getUnLikeCount($row['post_id']);
+echo '</span>';  
+                    
+
                     echo "</div>";
 
                     echo "</div>";
