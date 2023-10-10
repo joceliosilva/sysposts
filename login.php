@@ -70,5 +70,6 @@ if (isset($_SESSION['username'])) {
      
 
 </body>
-
+     <div class="separator"></div>
+  <?php include 'includes/footer.php'; ?>
 </html>
