@@ -1,19 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sistema de Posts</title>
+    <title>Dashboard - Sistema de Posts</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    
 </head>
 <body>
     <header>
-        <h1>Bem-vindo ao Sistema de Posts</h1>
+<h1>JS POSTS</h1>
+         <?php
+           
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+require_once "like.php";
+require_once "unlike.php";
+       
+        if (isset($_SESSION['username'])) {
+          
+             $user =  $_SESSION['username'];
+             header ('Location: dashboard.php');
+        
+        } else {
+           echo '<a href="login.php"><button id="envpost" class="btn btn-secondary style="display: none;">Envie seu post</button></a>';
+        }
+        
+        ?>
+       
+      
+          
+
+      
     </header>
     <main>
 
         <div class="container">
             <section class="posts">
-             <?php
+                <!-- Formulário para criar um novo post -->
+                <form id="form" action="processar_post.php" method="POST" style="display: none;">
+               <center> <label for="post-title" id="post-title-label">Título: </label><input type="text" id="post-title" name="post_title" required></center> <br/>
+                   <center><textarea class="textarea" name="post_content" rows="6" cols="50" required ></textarea></center>
+                   <center><br/> <input type="submit" value="Enviar Post" ></center>
+                </form>
+                <!-- Exibir os posts dos usuários aqui -->
+                <section>
+                <?php
                 require_once "db.php";
+
 
                 // Consulta para obter os posts
 
@@ -23,6 +59,7 @@
                 $start = ($page - 1) * $posts_per_page;
 
                 $sql = "SELECT posts.*, users.username AS author FROM posts INNER JOIN users ON posts.user_id = users.user_id ORDER BY post_id DESC LIMIT $start, $posts_per_page";
+
                 $result = $conn->query($sql);
 
                 
@@ -38,18 +75,33 @@
                 }
 
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<div class='post'>";
-                        echo "<p font-color=blue;>{$row['author']}</p>";
-                        echo "<p>{$row['post_content']}</p>";
-                        echo "<a href='like.php?post_id={$row['post_id']}'>Curtir</a>";
-                        echo "</div>";
-                    }
-                } else {
-                    echo "<p>Nenhum post disponível.</p>";
-                }
+               if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<div class='post'>";
+                    echo "<p><strong><a href='post_completo.php?post_id={$row['post_id']}'>{$row['title']}</a></strong></p>"; // Título como link
+                    //echo "<p>Autor: {$row['author']}</p>";
+                   
 
+                     $excerpt = substr($row['post_content'], 0, 150);
+
+                    echo "<p class='post-excerpt'>$excerpt...</p>";
+                    echo "<div class='likeunlike'>";
+                    echo '<span id="like-count">';
+                    echo '<i class="glyphicon glyphicon-thumbs-up"></i>';
+                    echo '&nbsp;'. getLikeCount($row['post_id']);
+                    echo '</span>';  
+                   
+                    echo '<span id="unlike-count">';
+                    echo '<i class="glyphicon glyphicon-thumbs-down"></i>';
+                    echo '&nbsp;'. getUnLikeCount($row['post_id']);
+                    echo '</span>';  
+                    echo "</div>";
+                    echo "</div>";
+                             }
+}           else {
+                    echo "<p>Nenhum post disponível.</p>";
+}
+                    
                     $total_pages = ceil($total_posts / $posts_per_page); // $total_posts é o total de posts no banco de dados
 
                     // Links para páginas anteriores e próximas
@@ -60,12 +112,30 @@
                         echo "<a href='dashboard.php?page=".($page + 1)."'>Próxima Página</a>";
                     }
 
-                $conn->close(); ?>
+              //  $conn->close();
+                ?>
             </section>
         </div>
     </main>
-    <footer>
-        <a href="login.php">Login</a> | <a href="cadastro.php">Cadastro</a>
-    </footer>
+    <script>
+    // Adicione um evento de clique ao botão "Inserir Post"
+    document.getElementById('inserir-post-btn').addEventListener('click', function() {
+        // Encontre a text area e o label usando seus IDs
+        var textarea = document.getElementById('form');
+        
+
+        // Alterne a visibilidade da text area e do label
+        if (textarea.style.display === 'none') {
+            textarea.style.display = 'block';
+           
+        } else {
+            textarea.style.display = 'none';
+            
+        }
+    });
+</script>
+
 </body>
+<?php include 'includes/footer.php'; ?>
+
 </html>

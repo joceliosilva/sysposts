@@ -29,7 +29,7 @@ require_once "unlike.php";
         }
         
         ?>
-        <h1>Dashboard</h1>
+        <h1>Página Inicial</h1>
         <p>Olá <?php echo" $user !" ?></p>
             <button id="inserir-post-btn" class="btn btn-secondary">Inserir Post</button>
             <a href="logout.php"><button id="inserir-post-btn" class="btn btn-secondary">Sair</button></a>
@@ -42,9 +42,9 @@ require_once "unlike.php";
             <section class="posts">
                 <!-- Formulário para criar um novo post -->
                 <form id="form" action="processar_post.php" method="POST" style="display: none;">
-               <center> <label for="post-title" id="post-title-label">Título: </label><input type="text" id="post-title" name="post_title" required></center> <br/>
-                   <center><textarea class="textarea" name="post_content" rows="6" cols="50" required ></textarea></center>
-                   <center><br/> <input type="submit" value="Enviar Post" ></center>
+               <center> <label for="post-title" id="post-title-label">Título: </label>&nbsp;<input type="text" id="post-title" name="post_title" class="form-control" required></center> <br/>
+                   <center><textarea class="textarea" name="post_content" id="form-control" rows="6" cols="50" required ></textarea></center>
+                   <center><br/> <input type="submit" class="btn btn-primary" value="Enviar Post" ></center>
                 </form>
                 <!-- Exibir os posts dos usuários aqui -->
                 <section>
@@ -86,31 +86,21 @@ require_once "unlike.php";
                      $excerpt = substr($row['post_content'], 0, 150);
 
                     echo "<p class='post-excerpt'>$excerpt...</p>";
-                    
                     echo "<div class='likeunlike'>";
-                     
-                   echo '<span id="like-count">';
+                    echo '<span id="like-count">';
                     echo '<i class="glyphicon glyphicon-thumbs-up"></i>';
-echo '&nbsp;'. getLikeCount($row['post_id']);
-echo '</span>';  
+                    echo '&nbsp;'. getLikeCount($row['post_id']);
+                    echo '</span>';  
                    
-
-
-
-
-                     
-                   echo '<span id="unlike-count">';
+                    echo '<span id="unlike-count">';
                     echo '<i class="glyphicon glyphicon-thumbs-down"></i>';
-echo '&nbsp;'. getUnLikeCount($row['post_id']);
-echo '</span>';  
-                    
-
+                    echo '&nbsp;'. getUnLikeCount($row['post_id']);
+                    echo '</span>';  
                     echo "</div>";
-
                     echo "</div>";
-                }
+                             }
 }           else {
-    echo "<p>Nenhum post disponível.</p>";
+                    echo "<p>Nenhum post disponível.</p>";
 }
                     
                     $total_pages = ceil($total_posts / $posts_per_page); // $total_posts é o total de posts no banco de dados

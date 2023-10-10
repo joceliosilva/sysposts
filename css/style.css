@@ -19,7 +19,12 @@ header h1 {
 .textarea{
     align-content: center;
 }
-
+#post-title{
+    width: 50%;
+}
+#form-control{
+    width: 50%;
+}
 .container {
     max-width: 800px;
     margin: 0 auto;
@@ -72,8 +77,10 @@ header h1 {
   
     display: flex;
     flex-direction: column;
-    
-
+  }  
+  a{
+   text-decoration: none; 
+}
 }
 .login-container {
     width: 300px;
@@ -83,9 +90,10 @@ header h1 {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-
 }
-
+#tt{
+    display : inline-block;
+}
 .posts {
     background-color: #fff;
     padding: 20px;

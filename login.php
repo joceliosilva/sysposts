@@ -34,7 +34,7 @@ if (isset($_SESSION['username'])) {
     </script>
     </header>
     <main >
-            <div class="separator"></div>
+        <div class="separator"></div>
     <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">

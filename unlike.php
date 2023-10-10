@@ -17,13 +17,15 @@ if (isset($_GET['post_id'])) {
     if ($result->num_rows === 0) {
         // O usuário ainda não curtiu este post, registre a curtida
         $insertSql = "INSERT INTO unlikes (post_id, user_id) VALUES ($postId, $userId)";
-        if ($conn->query($insertSql) === TRUE) {
-            echo "Unlike registrado com sucesso.";
+         if ($conn->query($insertSql) === TRUE) {
+                $_SESSION['unlikesend'] = "Curtida Enviada";
+                header("Location: post_completo.php?post_id={$postId}");
         } else {
             echo "Erro ao registrar a curtida: " . $conn->error;
         }
     } else {
-        echo "Você já curtiu este postS.";
+         $_SESSION['unlikeexist'] = "JA CURTIDO";
+          header("Location: post_completo.php?post_id={$postId}");
     }
 }// else {
 //    echo "ID do post não especificado.";

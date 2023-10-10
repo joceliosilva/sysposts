@@ -18,12 +18,14 @@ if (isset($_GET['post_id'])) {
         // O usuário ainda não curtiu este post, registre a curtida
         $insertSql = "INSERT INTO likes (post_id, user_id) VALUES ($postId, $userId)";
         if ($conn->query($insertSql) === TRUE) {
-            echo "Curtida registrada com sucesso.";
-        } else {
+               $_SESSION['likesend'] = "Curtida Enviada";
+               header("Location: post_completo.php?post_id={$postId}");
+         } else {
             echo "Erro ao registrar a curtida: " . $conn->error;
         }
     } else {
-        echo "Você já curtiu este post.";
+         $_SESSION['likeexist'] = "JA CURTIDO";
+         header("Location: post_completo.php?post_id={$postId}");
     }
 }// else {
 //    echo "ID do post não especificado.";

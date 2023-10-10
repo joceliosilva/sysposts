@@ -19,3 +19,22 @@ document.querySelectorAll('.ver-mais').forEach(function(button) {
         button.style.display = 'none';
     });
 });
+
+ 
+   ; //Variável que vai manipular o botão Exibir/ocultar
+ 
+    function exibir() {
+        var textarea = document.getElementById('tt');
+        
+
+        // Alterne a visibilidade da text area e do label
+        if (textarea.style.display === 'inline-block') {
+            textarea.style.display = 'block';
+           
+        } else {
+            textarea.style.display = 'none';
+            
+        }
+    }
+ 
+    
